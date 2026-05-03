@@ -39,11 +39,15 @@ html {
 }
 
 body {
-  min-height: 100%;
+  min-height: 100vh;
   margin: 0;
   background:
     linear-gradient(180deg, #151718 0%, var(--bg) 34rem, #090a0b 100%),
     linear-gradient(90deg, rgba(69, 209, 154, 0.035), rgba(110, 198, 255, 0.025));
+  background-color: #090a0b;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: 100% 100vh;
   color: var(--text);
   font: 13px/1.55 var(--font);
   -webkit-font-smoothing: antialiased;
@@ -1049,9 +1053,9 @@ td a:hover {
   gap: 14px;
 }
 
-.owl-carousel > div:not(.owl-stage-outer):not(.owl-nav):not(.owl-dots):not(.owl-controls):not(.owl-buttons):not(.owl-pagination),
+.owl-carousel > div:not(.owl-stage-outer):not(.owl-nav):not(.owl-dots):not(.owl-dot):not(.owl-controls):not(.owl-buttons):not(.owl-pagination):not(.owl-page),
 .owl-stage > .owl-item,
-.last_torrent_table > div > div:not(.owl-stage-outer):not(.owl-nav):not(.owl-dots):not(.owl-controls):not(.owl-buttons):not(.owl-pagination) {
+.last_torrent_table > div > div:not(.owl-stage-outer):not(.owl-nav):not(.owl-dots):not(.owl-dot):not(.owl-controls):not(.owl-buttons):not(.owl-pagination):not(.owl-page) {
   flex: 0 0 var(--latest-card-width);
   width: var(--latest-card-width) !important;
   min-width: var(--latest-card-width);
@@ -1066,7 +1070,7 @@ input[type="radio"]:focus {
   box-shadow: none;
 }
 
-.owl-carousel > div:not(.owl-stage-outer):not(.owl-nav):not(.owl-dots):not(.owl-controls):not(.owl-buttons):not(.owl-pagination),
+.owl-carousel > div:not(.owl-stage-outer):not(.owl-nav):not(.owl-dots):not(.owl-dot):not(.owl-controls):not(.owl-buttons):not(.owl-pagination):not(.owl-page),
 .owl-stage > .owl-item > div {
   padding: 10px;
   border: 1px solid var(--line);
@@ -1075,14 +1079,14 @@ input[type="radio"]:focus {
   transition: transform 160ms ease, border-color 160ms ease, background-color 160ms ease;
 }
 
-.owl-carousel > div:not(.owl-stage-outer):not(.owl-nav):not(.owl-dots):not(.owl-controls):not(.owl-buttons):not(.owl-pagination):hover,
+.owl-carousel > div:not(.owl-stage-outer):not(.owl-nav):not(.owl-dots):not(.owl-dot):not(.owl-controls):not(.owl-buttons):not(.owl-pagination):not(.owl-page):hover,
 .owl-stage > .owl-item > div:hover {
   transform: translateY(-3px);
   border-color: rgba(69, 209, 154, 0.28);
   background: rgba(255, 255, 255, 0.075);
 }
 
-.owl-carousel > div:not(.owl-stage-outer):not(.owl-nav):not(.owl-dots):not(.owl-controls):not(.owl-buttons):not(.owl-pagination) > a > div[style*="background-image"],
+.owl-carousel > div:not(.owl-stage-outer):not(.owl-nav):not(.owl-dots):not(.owl-dot):not(.owl-controls):not(.owl-buttons):not(.owl-pagination):not(.owl-page) > a > div[style*="background-image"],
 .owl-stage > .owl-item > div > a > div[style*="background-image"] {
   height: var(--latest-poster-height) !important;
   margin: 0 0 9px !important;
@@ -2099,20 +2103,29 @@ img.banner {
   color: var(--danger);
 }
 
-/* Torrent detail pages: keep poster, IMDb, people, and tags beside the content. */
-body#torrents #content > .thin {
+/* Detail pages: keep poster, YouTube, about, people, tags, and settings sections beside the content. */
+body#torrents #content > .thin,
+body#series #content > .thin,
+body#user #content > .thin {
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
   gap: 18px;
 }
 
-body#torrents #content > .thin > .header {
+body#torrents #content > .thin > .header,
+body#series #content > .thin > .header,
+body#user #content > .thin > .header {
+  order: 0;
   flex: 0 0 100%;
   min-width: 0;
 }
 
-body#torrents #content > .thin > .sidebar {
+body#torrents #content > .thin > .sidebar,
+body#series #content > .thin > .sidebar,
+body#user #content > .thin > .sidebar,
+body#user #content > .thin > #settings_sections {
+  order: 1;
   flex: 0 0 286px;
   width: 286px;
   position: sticky;
@@ -2127,10 +2140,26 @@ body#torrents #content > .thin > .sidebar {
 }
 
 body#torrents #content > .thin > .main_column,
-body#torrents #content > .thin > .main-column {
+body#torrents #content > .thin > .main-column,
+body#series #content > .thin > .main_column,
+body#series #content > .thin > .main-column,
+body#user #content > .thin > .main_column,
+body#user #content > .thin > .main-column {
+  order: 2;
   flex: 1 1 0;
   width: auto;
   min-width: 0;
+}
+
+body#user #content > .thin > #settings_sections,
+body#user .sidebar.settings_sidebar {
+  flex-basis: 240px;
+  width: 240px;
+}
+
+body#user #settings_sections.fixed {
+  inset-inline-start: auto;
+  inset-inline-end: max(16px, calc((100vw - var(--content)) / 2));
 }
 
 body#torrents .header h2 {
@@ -2248,14 +2277,14 @@ body#torrents .youtube-player {
 
 body#torrents .filter_torrents,
 body#torrents .box.filter_torrents {
-  max-width: 1060px;
+  max-width: 900px;
   margin-inline: auto;
 }
 
 body#torrents .filter_torrents .box.pad,
 body#torrents .box.filter_torrents .pad,
 body#torrents .box.filter_torrents > form {
-  padding: 10px 12px;
+  padding: 8px 10px;
 }
 
 body#torrents .filter_torrents table,
@@ -2267,26 +2296,30 @@ body#torrents .filter_torrents td,
 body#torrents .filter_torrents th,
 body#torrents .box.filter_torrents td,
 body#torrents .box.filter_torrents th {
-  padding: 7px 9px;
+  padding: 5px 7px;
 }
 
 body#torrents .filter_torrents td.label,
 body#torrents .filter_torrents td.label-to-left,
 body#torrents .box.filter_torrents td.label,
 body#torrents .box.filter_torrents td.label-to-left {
-  width: 126px;
-  max-width: 126px;
+  width: 112px;
+  max-width: 112px;
   white-space: nowrap;
 }
 
 body#torrents .filter_torrents input[type="text"],
 body#torrents .filter_torrents input[type="search"],
-body#torrents .filter_torrents select,
 body#torrents .box.filter_torrents input[type="text"],
-body#torrents .box.filter_torrents input[type="search"],
+body#torrents .box.filter_torrents input[type="search"] {
+  min-height: 32px;
+  max-width: 440px;
+}
+
+body#torrents .filter_torrents select,
 body#torrents .box.filter_torrents select {
-  min-height: 34px;
-  max-width: 620px;
+  min-height: 32px;
+  max-width: 280px;
 }
 
 body#torrents .filter_torrents input[type="checkbox"],
@@ -2310,7 +2343,7 @@ body#torrents .filter_torrents .cat_list td,
 body#torrents .filter_torrents .ft_cat_list td,
 body#torrents .box.filter_torrents .cat_list td,
 body#torrents .box.filter_torrents .ft_cat_list td {
-  padding: 6px 8px;
+  padding: 4px 6px;
 }
 
 body#torrents .filter_torrents .tags,
@@ -2318,7 +2351,7 @@ body#torrents .box.filter_torrents .tags,
 body#torrents .filter_torrents #taglist,
 body#torrents .box.filter_torrents #taglist {
   justify-content: center;
-  gap: 6px;
+  gap: 4px;
 }
 
 body#torrents .filelist_table,
@@ -2363,6 +2396,28 @@ body#torrents .filelist_table td:first-child {
 .owl-pagination,
 .owl-dots {
   display: none !important;
+}
+
+#latest_torrents .owl-pagination,
+#latest_torrents .owl-dots,
+#latest_torrents .owl-page,
+#latest_torrents .owl-dot,
+#latest_torrents .owl-controls .owl-pagination,
+#latest_torrents .owl-controls .owl-page,
+#latest_torrents .owl-controls .owl-page span,
+#latest_torrents .owl-dots button,
+#latest_torrents .owl-dot span {
+  display: none !important;
+  visibility: hidden !important;
+  width: 0 !important;
+  min-width: 0 !important;
+  height: 0 !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
 }
 
 .owl-nav button,
@@ -2580,11 +2635,16 @@ img.reaction {
     display: block;
   }
 
-  body#torrents #content > .thin {
+  body#torrents #content > .thin,
+  body#series #content > .thin,
+  body#user #content > .thin {
     display: block;
   }
 
-  body#torrents #content > .thin > .sidebar {
+  body#torrents #content > .thin > .sidebar,
+  body#series #content > .thin > .sidebar,
+  body#user #content > .thin > .sidebar,
+  body#user #content > .thin > #settings_sections {
     position: static;
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -2595,12 +2655,18 @@ img.reaction {
     margin-bottom: 16px;
   }
 
-  body#torrents #content > .thin > .sidebar .box {
+  body#torrents #content > .thin > .sidebar .box,
+  body#series #content > .thin > .sidebar .box,
+  body#user #content > .thin > .sidebar .box {
     margin-bottom: 0;
   }
 
   body#torrents #content > .thin > .main_column,
-  body#torrents #content > .thin > .main-column {
+  body#torrents #content > .thin > .main-column,
+  body#series #content > .thin > .main_column,
+  body#series #content > .thin > .main-column,
+  body#user #content > .thin > .main_column,
+  body#user #content > .thin > .main-column {
     width: 100%;
   }
 
@@ -2760,7 +2826,10 @@ img.reaction {
     margin: -12px -12px 12px;
   }
 
-  body#torrents #content > .thin > .sidebar {
+  body#torrents #content > .thin > .sidebar,
+  body#series #content > .thin > .sidebar,
+  body#user #content > .thin > .sidebar,
+  body#user #content > .thin > #settings_sections {
     grid-template-columns: 1fr;
   }
 
