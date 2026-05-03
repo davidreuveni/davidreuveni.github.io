@@ -1,5 +1,5 @@
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css");
-
+/*abnibi abonebe*/
 :root {
   color-scheme: dark;
   --bg: #0f1113;
@@ -900,7 +900,8 @@ td a:hover {
 
 /* Latest releases */
 #latest_torrents {
-  --latest-row-height: 268px;
+  --latest-card-width: 142px;
+  --latest-poster-height: 176px;
   text-align: center;
 }
 
@@ -948,16 +949,13 @@ td a:hover {
 
 #latest5tor {
   position: relative;
-  max-height: var(--latest-row-height);
-  overflow-x: hidden;
-  overflow-y: auto;
+  overflow: hidden;
   scrollbar-width: thin;
   scrollbar-color: rgba(69, 209, 154, 0.55) rgba(255, 255, 255, 0.06);
-  transition: max-height 220ms ease;
 }
 
 #latest5tor::-webkit-scrollbar {
-  width: 10px;
+  height: 10px;
 }
 
 #latest5tor::-webkit-scrollbar-track {
@@ -971,32 +969,6 @@ td a:hover {
   border: 2px solid rgba(25, 31, 41, 0.96);
 }
 
-#latest5tor::after {
-  content: "גלול לעוד";
-  position: absolute;
-  inset-inline: 0;
-  bottom: 0;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  height: 52px;
-  padding-bottom: 7px;
-  pointer-events: none;
-  background: linear-gradient(180deg, rgba(25, 31, 41, 0), rgba(25, 31, 41, 0.96));
-  color: var(--text-muted);
-  font-size: 0.74rem;
-  font-weight: 750;
-}
-
-#latest_releases_toggle:checked ~ #latest5tor {
-  max-height: 2200px;
-  overflow-y: visible;
-}
-
-#latest_releases_toggle:checked ~ #latest5tor::after {
-  content: none;
-}
-
 #latest_torrents .box,
 #latest_torrents.box {
   background:
@@ -1005,25 +977,73 @@ td a:hover {
 }
 
 .last_torrent_table {
+  position: relative;
   padding-top: 2px;
 }
 
 .owl-carousel,
 .owl-normal,
 .owl-internal {
-  display: grid !important;
-  grid-template-columns: repeat(auto-fill, minmax(132px, 1fr));
+  display: flex !important;
+  flex-wrap: nowrap !important;
   gap: 14px;
-  direction: rtl;
-}
-
-.owl-carousel > div,
-.owl-stage > .owl-item,
-.last_torrent_table > div > div {
   min-width: 0;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  padding: 4px 42px 12px;
+  scroll-behavior: smooth;
+  scroll-padding-inline: 42px;
+  scroll-snap-type: x proximity;
+  direction: rtl;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(69, 209, 154, 0.55) rgba(255, 255, 255, 0.06);
 }
 
-.owl-carousel > div {
+.owl-carousel::-webkit-scrollbar,
+.owl-stage-outer::-webkit-scrollbar {
+  height: 10px;
+}
+
+.owl-carousel::-webkit-scrollbar-track,
+.owl-stage-outer::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 999px;
+}
+
+.owl-carousel::-webkit-scrollbar-thumb,
+.owl-stage-outer::-webkit-scrollbar-thumb {
+  background: rgba(69, 209, 154, 0.55);
+  border-radius: 999px;
+  border: 2px solid rgba(25, 31, 41, 0.96);
+}
+
+.owl-stage-outer {
+  flex: 1 1 auto;
+  width: 100%;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  padding: 4px 42px 12px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(69, 209, 154, 0.55) rgba(255, 255, 255, 0.06);
+}
+
+.owl-stage {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  gap: 14px;
+}
+
+.owl-carousel > div:not(.owl-stage-outer):not(.owl-nav):not(.owl-dots),
+.owl-stage > .owl-item,
+.last_torrent_table > div > div:not(.owl-stage-outer):not(.owl-nav):not(.owl-dots) {
+  flex: 0 0 var(--latest-card-width);
+  width: var(--latest-card-width) !important;
+  min-width: var(--latest-card-width);
+  scroll-snap-align: start;
+}
+
+.owl-carousel > div:not(.owl-stage-outer):not(.owl-nav):not(.owl-dots),
+.owl-stage > .owl-item > div {
   padding: 10px;
   border: 1px solid var(--line);
   border-radius: var(--radius);
@@ -1031,14 +1051,16 @@ td a:hover {
   transition: transform 160ms ease, border-color 160ms ease, background-color 160ms ease;
 }
 
-.owl-carousel > div:hover {
+.owl-carousel > div:not(.owl-stage-outer):not(.owl-nav):not(.owl-dots):hover,
+.owl-stage > .owl-item > div:hover {
   transform: translateY(-3px);
   border-color: rgba(69, 209, 154, 0.28);
   background: rgba(255, 255, 255, 0.075);
 }
 
-.owl-carousel > div > a > div[style*="background-image"] {
-  height: 172px !important;
+.owl-carousel > div:not(.owl-stage-outer):not(.owl-nav):not(.owl-dots) > a > div[style*="background-image"],
+.owl-stage > .owl-item > div > a > div[style*="background-image"] {
+  height: var(--latest-poster-height) !important;
   margin: 0 0 9px !important;
   border-radius: var(--radius-sm);
   background-color: #0b0d11;
@@ -2216,6 +2238,67 @@ body#torrents .filelist_table td:first-child {
   overflow-wrap: anywhere;
 }
 
+.owl-nav {
+  position: absolute;
+  inset: 50% 0 auto;
+  z-index: 5;
+  display: flex !important;
+  justify-content: space-between;
+  padding: 0 6px;
+  pointer-events: none;
+  transform: translateY(-50%);
+}
+
+.owl-nav button,
+.owl-nav .owl-prev,
+.owl-nav .owl-next {
+  display: inline-grid !important;
+  place-items: center;
+  width: 36px;
+  height: 52px;
+  border: 1px solid rgba(255, 255, 255, 0.16) !important;
+  border-radius: var(--radius-sm) !important;
+  background: rgba(20, 24, 32, 0.9) !important;
+  color: var(--text) !important;
+  box-shadow: var(--shadow-soft);
+  backdrop-filter: blur(12px);
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.owl-nav button:hover,
+.owl-nav .owl-prev:hover,
+.owl-nav .owl-next:hover {
+  border-color: rgba(69, 209, 154, 0.42) !important;
+  background: rgba(35, 44, 50, 0.96) !important;
+  color: var(--accent) !important;
+}
+
+.owl-nav .disabled {
+  opacity: 0.38;
+  cursor: default;
+}
+
+.owl-prev::before,
+.owl-next::before {
+  font-family: FontAwesome, var(--font);
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.owl-prev::before {
+  content: "\f105";
+}
+
+.owl-next::before {
+  content: "\f104";
+}
+
+.owl-prev span,
+.owl-next span {
+  display: none;
+}
+
 body#torrents .forum_post {
   table-layout: fixed;
 }
@@ -2441,15 +2524,28 @@ img.reaction {
   .owl-carousel,
   .owl-normal,
   .owl-internal {
-    grid-template-columns: repeat(auto-fill, minmax(118px, 1fr));
+    gap: 10px;
+    padding-inline: 36px;
   }
 
   #latest_torrents {
-    --latest-row-height: 244px;
+    --latest-card-width: 126px;
+    --latest-poster-height: 154px;
   }
 
-  .owl-carousel > div > a > div[style*="background-image"] {
-    height: 150px !important;
+  .owl-stage {
+    gap: 10px;
+  }
+
+  .owl-stage-outer {
+    padding-inline: 36px;
+  }
+
+  .owl-nav button,
+  .owl-nav .owl-prev,
+  .owl-nav .owl-next {
+    width: 32px;
+    height: 46px;
   }
 
   #index .torrent_table,
