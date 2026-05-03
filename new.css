@@ -2,11 +2,11 @@
 
 :root {
   color-scheme: dark;
-  --bg: #0e1014;
-  --bg-soft: #141820;
-  --surface: #191f29;
-  --surface-2: #202734;
-  --surface-3: #273140;
+  --bg: #0f1113;
+  --bg-soft: #151719;
+  --surface: #1b1f22;
+  --surface-2: #23282c;
+  --surface-3: #2c3338;
   --line: rgba(255, 255, 255, 0.1);
   --line-strong: rgba(255, 255, 255, 0.16);
   --text: #eef3f8;
@@ -42,9 +42,8 @@ body {
   min-height: 100%;
   margin: 0;
   background:
-    radial-gradient(circle at 12% 0%, rgba(69, 209, 154, 0.13), transparent 28rem),
-    radial-gradient(circle at 88% 8%, rgba(110, 198, 255, 0.11), transparent 30rem),
-    linear-gradient(180deg, #10141b 0%, var(--bg) 32rem, #0b0d11 100%);
+    linear-gradient(180deg, #151718 0%, var(--bg) 34rem, #090a0b 100%),
+    linear-gradient(90deg, rgba(69, 209, 154, 0.035), rgba(110, 198, 255, 0.025));
   color: var(--text);
   font: 13px/1.55 var(--font);
   -webkit-font-smoothing: antialiased;
@@ -229,7 +228,7 @@ code,
 
 #menu::before {
   content: "תפריט";
-  display: inline-flex;
+  display: none;
   align-items: center;
   justify-content: center;
   min-height: 32px;
@@ -248,21 +247,9 @@ code,
   align-items: center;
   justify-content: center;
   gap: 5px;
-  max-height: 0;
   max-width: var(--content);
   margin: 0 auto;
-  overflow: hidden;
-  opacity: 0;
-  transform: translateY(-4px);
-  transition: max-height 190ms ease, opacity 150ms ease, transform 150ms ease, padding-top 150ms ease;
-}
-
-#menu:hover > ul,
-#menu:focus-within > ul {
-  max-height: 320px;
-  padding-top: 8px;
-  opacity: 1;
-  transform: translateY(0);
+  overflow: visible;
 }
 
 #menu li,
@@ -540,8 +527,8 @@ strong[class*="permission_"] * {
   position: relative;
   display: grid;
   place-items: center;
-  min-height: 230px;
-  padding: 42px 16px 72px;
+  min-height: 250px;
+  padding: 42px 16px 92px;
   overflow: hidden;
   background-position: center;
   background-size: cover;
@@ -593,18 +580,23 @@ strong[class*="permission_"] * {
   align-items: center;
   justify-content: center;
   gap: 8px 14px;
-  max-height: 46px;
+  min-height: 46px;
   padding: 10px 16px;
-  overflow: hidden;
+  overflow: visible;
   background: rgba(9, 12, 17, 0.72);
   border-top: 1px solid var(--line);
   backdrop-filter: blur(14px);
-  transition: max-height 190ms ease, background-color 150ms ease;
+}
+
+#userinfo_stats,
+#userinfo_major,
+#userinfo_minor {
+  min-width: 0;
 }
 
 #userinfo::before {
-  content: "מידע משתמש";
-  display: inline-flex;
+  content: none;
+  display: none;
   align-items: center;
   min-height: 26px;
   padding: 4px 10px;
@@ -614,12 +606,6 @@ strong[class*="permission_"] * {
   color: var(--text);
   font-weight: 750;
   white-space: nowrap;
-}
-
-#userinfo:hover,
-#userinfo:focus-within {
-  max-height: 160px;
-  background: rgba(9, 12, 17, 0.9);
 }
 
 #userinfo ul {
@@ -809,6 +795,14 @@ input[type="button"]:hover,
 .linkbox,
 .pagination {
   text-align: center;
+}
+
+.linkbox {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 6px 8px;
 }
 
 .box,
@@ -1322,13 +1316,7 @@ body#forums #content {
 }
 
 body#forums #userinfo {
-  max-height: 58px;
   padding-block: 12px;
-}
-
-body#forums #userinfo:hover,
-body#forums #userinfo:focus-within {
-  max-height: 190px;
 }
 
 body#forums #userinfo_major {
@@ -1611,6 +1599,12 @@ body#forums .forum_post td.avatar:not(:has(img))::before {
   transform: none;
 }
 
+@supports not selector(:has(*)) {
+  body#forums .forum_post td.avatar::before {
+    content: none;
+  }
+}
+
 body#forums .forum_post td.avatar > a,
 body#forums .forum_post td.avatar > img {
   display: block;
@@ -1740,7 +1734,9 @@ td.unread_locked_sticky::before {
 
 .page-link,
 .next-prev,
-.linkbox a.brackets {
+.linkbox a.brackets,
+a.brackets,
+span.brackets {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -1755,6 +1751,7 @@ td.unread_locked_sticky::before {
 
 .page-link:hover,
 .next-prev:hover,
+a.brackets:hover,
 .linkbox a.brackets:hover {
   border-color: rgba(69, 209, 154, 0.3);
   color: var(--accent);
@@ -1837,49 +1834,62 @@ ul.ui-autocomplete.ui-menu.ui-widget li a:focus {
 .cats_porno::before,
 .cats_tv::before,
 .cats_theater::before {
+  display: inline-block;
+  min-width: 1.1em;
+  font-family: FontAwesome, var(--font);
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  text-align: center;
   color: var(--text);
 }
 
 .show_torrents::before {
-  content: "+";
+  content: "\f067";
 }
 
 .hide_torrents::before {
-  content: "-";
+  content: "\f068";
 }
 
-.cats_movies::before,
-.cats_tv::before,
+.cats_movies::before {
+  content: "\f008";
+}
+
+.cats_tv::before {
+  content: "\f26c";
+}
+
 .cats_theater::before {
-  content: "";
+  content: "\f145";
 }
 
 .cats_games::before {
-  content: "";
+  content: "\f11b";
 }
 
 .cats_software::before {
-  content: "";
+  content: "\f108";
 }
 
 .cats_music::before {
-  content: "";
+  content: "\f001";
 }
 
 .cats_books::before {
-  content: "";
+  content: "\f02d";
 }
 
 .cats_porno::before {
-  content: "";
+  content: "\f06e";
 }
 
 .cats_other::before {
-  content: "";
+  content: "\f07c";
 }
 
 .cats_moviespacks::before {
-  content: "";
+  content: "\f187";
 }
 
 /* Notifications and overlays */
@@ -2190,6 +2200,82 @@ body#torrents .youtube-player {
   border-radius: var(--radius-sm);
 }
 
+body#torrents .filelist_table,
+body#torrents .mediainfo,
+body#torrents table.nobr {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.035);
+}
+
+body#torrents .filelist_table {
+  table-layout: auto;
+}
+
+body#torrents .filelist_table td:first-child {
+  overflow-wrap: anywhere;
+}
+
+body#torrents .forum_post {
+  table-layout: fixed;
+}
+
+body#torrents .forum_post td.avatar {
+  width: 156px;
+  padding: 14px !important;
+  border-left: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.035);
+  text-align: center;
+  vertical-align: top;
+}
+
+body#torrents .forum_post td.avatar img:not(.donor_icon):not(.reaction) {
+  width: 128px;
+  max-width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: #0b0d11;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+}
+
+body#torrents .forum_post td.body {
+  padding: 16px 18px;
+  font-size: 0.94rem;
+  line-height: 1.68;
+}
+
+.react-con,
+.reactions-container,
+.all-reaction {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  vertical-align: middle;
+}
+
+.react-con {
+  min-height: 30px;
+  margin-top: 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.055);
+  cursor: pointer;
+}
+
+.react-con:hover {
+  border-color: rgba(69, 209, 154, 0.34);
+  background: rgba(69, 209, 154, 0.1);
+}
+
+img.reaction {
+  width: 20px !important;
+  height: 20px !important;
+  max-width: none;
+  vertical-align: middle;
+}
+
 /* Responsive */
 @media (max-width: 1020px) {
   #searchbars {
@@ -2216,12 +2302,29 @@ body#torrents .youtube-player {
     padding: 7px 10px;
   }
 
+  #menu::before {
+    display: inline-flex;
+  }
+
   #menu > ul {
     justify-content: flex-start;
     overflow-x: auto;
     flex-wrap: nowrap;
-    min-height: 40px;
+    max-height: 0;
+    min-height: 0;
+    opacity: 0;
+    transform: translateY(-4px);
+    transition: max-height 190ms ease, opacity 150ms ease, transform 150ms ease, padding-top 150ms ease;
     scrollbar-width: thin;
+  }
+
+  #menu:hover > ul,
+  #menu:focus-within > ul {
+    max-height: 74px;
+    min-height: 40px;
+    padding-top: 8px;
+    opacity: 1;
+    transform: translateY(0);
   }
 
   #menu > ul > li > a {
@@ -2349,27 +2452,27 @@ body#torrents .youtube-player {
     height: 150px !important;
   }
 
-  .torrent_table,
-  .torrent_table tbody,
-  .torrent_table tr,
-  .torrent_table td {
+  #index .torrent_table,
+  #index .torrent_table tbody,
+  #index .torrent_table tr,
+  #index .torrent_table td {
     display: block;
     width: 100%;
   }
 
-  .torrent_table tr {
+  #index .torrent_table tr {
     position: relative;
     padding: 12px;
     padding-inline-start: 96px;
     border-bottom: 1px solid var(--line);
   }
 
-  .torrent_table td {
+  #index .torrent_table td {
     padding: 4px 0;
     border-bottom: 0;
   }
 
-  .torrent_table .rec_img {
+  #index .torrent_table .rec_img {
     position: absolute;
     inset-inline-start: 12px;
     top: 12px;
@@ -2377,11 +2480,32 @@ body#torrents .youtube-player {
     min-width: 70px;
   }
 
-  .torrent_table .sign {
+  #index .torrent_table .sign {
     display: inline-flex;
     width: auto;
     margin-inline-end: 12px;
     gap: 4px;
+  }
+
+  body#torrents .forum_post,
+  body#torrents .forum_post tbody,
+  body#torrents .forum_post tr,
+  body#torrents .forum_post td {
+    display: block;
+    width: 100% !important;
+  }
+
+  body#torrents .forum_post colgroup {
+    display: none;
+  }
+
+  body#torrents .forum_post td.avatar {
+    border-left: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  body#torrents .forum_post td.body {
+    padding: 14px;
   }
 }
 
@@ -2408,10 +2532,6 @@ body#torrents .youtube-player {
 
   body#torrents #content > .thin > .sidebar {
     grid-template-columns: 1fr;
-  }
-
-  body#forums #userinfo {
-    max-height: 50px;
   }
 
   body#forums .forum_category_title {
