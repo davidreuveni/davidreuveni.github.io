@@ -1,0 +1,83 @@
+@import url("./base.css");
+
+:root {
+  --bg: #111;
+  --bg-soft: #1a1a1a;
+  --surface: #1f1f1f;
+  --surface-2: #313131;
+  --surface-3: #444;
+  --line: rgba(208, 208, 208, 0.16);
+  --line-strong: rgba(208, 208, 208, 0.26);
+  --text: #f7f7f7;
+  --text-muted: #ababab;
+  --text-soft: #d0d0d0;
+  --accent: #32867d;
+  --accent-2: #5aada5;
+  --accent-3: #d2aa4b;
+  --danger: #bd0d0d;
+  --success: #3c9454;
+  --warning: #ff7c00;
+  --accent-rgb: 50 134 125;
+  --accent-2-rgb: 90 173 165;
+  --accent-3-rgb: 210 170 75;
+  --success-rgb: 60 148 84;
+  --warning-rgb: 255 124 0;
+  --danger-rgb: 189 13 13;
+  --page-bg-top: #1a1a1a;
+  --page-bg-bottom: #111;
+  --deep-bg: #131313;
+  --accent-hover: #70b3ab;
+  --accent-button-end: #6cb3ae;
+  --button-text: #fff;
+  --button-text-hover: #fff;
+  --placeholder-text: #848484;
+  --quiet-text: #9a9a9a;
+  --quiet-text-2: #ababab;
+  --accent-2-chip-text: #f7f7f7;
+  --accent-3-chip-text: #313131;
+  --success-chip-text: #f7f7f7;
+  --shadow: 0 18px 50px rgba(0, 0, 0, 0.32);
+  --shadow-soft: 0 10px 26px rgba(0, 0, 0, 0.24);
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline-color: rgba(90, 173, 165, 0.78);
+}
+
+input:hover,
+select:hover,
+textarea:hover,
+form.search_form input:hover {
+  border-color: rgba(90, 173, 165, 0.38);
+  background: rgba(0, 0, 0, 0.15);
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+form.search_form input:focus {
+  border-color: rgba(90, 173, 165, 0.72);
+  background: rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 0 4px rgba(90, 173, 165, 0.14);
+}
+
+input[type="submit"],
+input[type="button"],
+.btn,
+.disabled-btn {
+  border-color: rgba(108, 179, 174, 0.44);
+  background: #6cb3ae !important;
+  color: #fff !important;
+  box-shadow: 0 8px 18px rgba(50, 134, 125, 0.18);
+}
+
+input[type="submit"]:hover,
+input[type="button"]:hover,
+.btn:hover {
+  background: #b5b5b5 !important;
+  color: #fff !important;
+}

@@ -17,15 +17,27 @@
   --danger: #f87171;
   --success: #84cc16;
   --warning: #f97316;
+  --accent-rgb: 251 191 36;
+  --accent-2-rgb: 56 189 248;
+  --accent-3-rgb: 251 113 133;
+  --success-rgb: 132 204 22;
+  --warning-rgb: 249 115 22;
+  --danger-rgb: 248 113 113;
+  --page-bg-top: #1f1b10;
+  --page-bg-bottom: #060503;
+  --deep-bg: #121006;
+  --accent-hover: #fde68a;
+  --accent-button-end: #fbbf24;
+  --button-text: #171000;
+  --button-text-hover: #171000;
+  --placeholder-text: #b9aa83;
+  --quiet-text: #9e8f6e;
+  --quiet-text-2: #aa9975;
+  --accent-2-chip-text: #d9f3ff;
+  --accent-3-chip-text: #ffe4e6;
+  --success-chip-text: #d9f99d;
   --shadow: 0 18px 50px rgba(12, 9, 0, 0.44);
   --shadow-soft: 0 10px 26px rgba(12, 9, 0, 0.31);
-}
-
-body {
-  background:
-    linear-gradient(180deg, #1f1b10 0%, var(--bg) 34rem, #060503 100%),
-    linear-gradient(90deg, rgba(251, 191, 36, 0.045), rgba(56, 189, 248, 0.025));
-  background-color: #060503;
 }
 
 a:focus-visible,
