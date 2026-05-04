@@ -6,11 +6,11 @@
   --surface: #1f1f1f;
   --surface-2: #313131;
   --surface-3: #444;
-  --line: rgba(208, 208, 208, 0.16);
-  --line-strong: rgba(208, 208, 208, 0.26);
-  --text: #f7f7f7;
-  --text-muted: #ababab;
-  --text-soft: #d0d0d0;
+  --line: rgba(0, 0, 0, 0.18);
+  --line-strong: rgba(0, 0, 0, 0.28);
+  --text: #313131;
+  --text-muted: #777;
+  --text-soft: #313131;
   --accent: #32867d;
   --accent-2: #5aada5;
   --accent-3: #d2aa4b;
@@ -37,7 +37,222 @@
   --accent-3-chip-text: #313131;
   --success-chip-text: #f7f7f7;
   --shadow: 0 18px 50px rgba(0, 0, 0, 0.32);
-  --shadow-soft: 0 10px 26px rgba(0, 0, 0, 0.24);
+  --shadow-soft: 0 3px 4px rgba(0, 0, 0, 0.1);
+}
+
+#header,
+#menu,
+#searchbars-wrapper,
+#footer {
+  background: #1a1a1a;
+  color: #ababab;
+  border-color: #2b2b2b;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+
+#header a,
+#menu > ul > li > a,
+#footer a {
+  color: #f7f7f7;
+}
+
+#header a:hover,
+#header a:focus-visible,
+#menu > ul > li > a:hover,
+#menu > ul > li.active > a,
+#menu > ul > li:hover > a,
+#footer a:hover {
+  color: #32867d;
+  background: transparent;
+  border-color: transparent;
+}
+
+#menu::before {
+  background: #333;
+  color: #f7f7f7;
+  border-color: #444;
+}
+
+.nav_dropdown > div,
+.autocomplete-suggestions,
+.noty_buttons,
+.noty_message,
+ul#noty_bottomRight_layout_container li {
+  background: #1f1f1f !important;
+  color: #f7f7f7 !important;
+  border-color: #444 !important;
+}
+
+#banner::before {
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, 0.22), rgba(0, 0, 0, 0.58)),
+    linear-gradient(90deg, rgba(50, 134, 125, 0.16), rgba(90, 173, 165, 0.12));
+}
+
+#banner::after {
+  background: linear-gradient(180deg, transparent, rgba(26, 26, 26, 0.9));
+}
+
+#userinfo {
+  background: rgba(0, 0, 0, 0.5);
+  border-color: rgba(255, 255, 255, 0.18);
+  color: #f7f7f7;
+}
+
+#userinfo li {
+  background: transparent;
+  border-color: transparent;
+  color: #ababab;
+}
+
+#userinfo a,
+#userinfo a:hover {
+  color: #32867d;
+}
+
+.box,
+.panel__body,
+.panel__heading,
+.forum_post,
+.permission_subcontainer,
+.movie-item,
+div.ui-tabs-vertical,
+.tablebox table,
+.torrent_table,
+.forum_index,
+.forum_list,
+.message_table,
+table.layout,
+#latest_torrents .box,
+#latest_torrents.box,
+.sidebar .box,
+.group td,
+#inbox .box,
+#inbox .box #buttons .field_div.textarea_wrap,
+#inbox .box .body,
+#summary .ui-widget-content,
+#summary .ui-widget-header,
+body#torrents .filelist_table,
+body#torrents .mediainfo,
+body#torrents table.nobr {
+  background: #d9dbdb;
+  border-color: #d0d0d0;
+  color: #313131;
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.1);
+}
+
+.head,
+.box .head,
+.panel__heading,
+.forum-post__heading,
+.toggleable-search-form__toggler-container,
+tr.colhead td,
+tr.colhead_dark td,
+.colhead td,
+.colhead_dark td,
+#more_news .head,
+body#forums .forum_category_title {
+  background: #5aada5;
+  color: #f7f7f7;
+  border-color: #2b2b2b;
+  box-shadow: none;
+}
+
+.head a,
+.colhead a,
+.colhead_dark a,
+.forum_post .colhead a,
+.forum_post .colhead_dark a,
+tr.colhead td a,
+tr.colhead_dark td a {
+  color: #f7f7f7;
+}
+
+.head a:hover,
+.colhead a:hover,
+.colhead_dark a:hover,
+.forum_post .colhead a:hover,
+.forum_post .colhead_dark a:hover {
+  color: #000;
+}
+
+td,
+th {
+  color: #313131;
+  border-color: #d0d0d0;
+}
+
+tr:nth-child(even):not(.colhead):not(.colhead_dark) td {
+  background: #d0d0d0;
+}
+
+tr:hover td {
+  background: #e1e3e4;
+}
+
+a,
+td a,
+.forum_post a {
+  color: #32867d;
+}
+
+a:hover,
+td a:hover,
+.forum_post a:hover {
+  color: #000;
+}
+
+blockquote,
+pre,
+.breadcrumbs,
+body#forums .breadcrumbs,
+body#forums .forum_post .user_details,
+body#forums .forum_post td.avatar,
+body#torrents .forum_post td.avatar {
+  background: #d0d0d0;
+  color: #313131;
+  border-color: #b5b5b5;
+}
+
+input,
+select,
+textarea,
+button {
+  background: #1f1f1f;
+  color: #f7f7f7;
+  border-color: #444;
+}
+
+#searchbars input,
+form.search_form input {
+  background: rgba(0, 0, 0, 0.15);
+  color: #ababab;
+  border-color: #3b3b3b;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+.tags a,
+#taglist tr td a,
+.sidebar .stats.nobullet a,
+body#torrents #artist_list li a,
+body#torrents .box_tags ul.stats li a,
+.torrent_label,
+.tl_snatched,
+.tl_seeding {
+  background: #9c9c9c;
+  color: #f7f7f7 !important;
+  border-color: #9e9e9e;
+}
+
+.page-link,
+.pagination a,
+.linkbox a,
+.latest-releases-expand,
+.react-con {
+  background: #a9a9a9;
+  color: #333;
+  border-color: #a2a2a2;
 }
 
 a:focus-visible,
